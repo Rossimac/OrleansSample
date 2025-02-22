@@ -10,7 +10,8 @@ var orleans = builder.AddOrleans("default")
     .WithGrainStorage("Default", grainStorage);
 
 var silo = builder.AddProject<Projects.Silo>("silo")
-    .WaitFor(storage)
+    .WaitFor(clusteringTable)
+    .WaitFor(grainStorage)
     .WithReference(orleans)
     .WithReplicas(1);
 
